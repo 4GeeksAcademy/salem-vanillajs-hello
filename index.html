@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>random suit and number</title>
+<script>
+    window.onload = function() {
+        generateCard();    
+        setInterval(generateCard, 10000); // Generate a new card every 10 seconds  
+    };
+    function generateCard() {
+        const suits = ['spade', 'club', 'heart', 'diamond'];
+        const suitIcons = ['♠', '♣', '♥', '♦'];
+        const suitIndex = Math.floor(Math.random() * suits.length);
+        // Generate a random number between 2 and 10, or a face card (Ace, King, Queen, Jack)
+        // Ace is considered as 1, King, Queen, Jack are 11, 12, 13 respectively
+        const number = Math.floor(Math.random() * 9) + 2; // 2 to 10, Ace, King, Queen, Jack
+        // Adjust for face cards
+        const faceCards = ['Ace', 'Jack', 'Queen', 'King'];
+        // If number is 11 or greater, it corresponds to a face card
+        const cardValue = number > 10 ? faceCards[number - 11] : number;
+        // Display the card
+        const cardDiv = document.getElementById('card');
+        cardDiv.className = 'card ' + suits[suitIndex];
+        document.getElementById('top-suit').innerHTML = suitIcons[suitIndex];
+        document.getElementById('middle-number').innerHTML = cardValue;
+        document.getElementById('bottom-suit').innerHTML = suitIcons[suitIndex];
+            document.getElementById('button').addEventListener('click', generateCard);
+    }
+</script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container text-center mt-5 ">
+    <div id="card" class="card" >
+        <div class="top">
+            <span id="top-suit"></span>
+            <span id="top-number"></span>
+        </div>
+        <div class="middle">
+            <span id="middle-number"></span>
+        </div>
+        <div class="bottom">
+            <span id="bottom-number"></span>
+            <span id="bottom-suit"></span>
+        </div>
+    </div>
+    <p class="mt-3">A new card will be generated every 10 seconds.</p>
+    <button class="btn btn-primary mt-3" id="button">Generate New Card</button>
+</body>
+
+<style>
+     body {
+        background-color: #0D7E13;
+    }
+    .card {
+        display: inline-block;
+        width: 250px; 
+        height: 350px; 
+        font-size: 100px; 
+        border: 4px ; 
+        border-radius: 30px;
+
+    }
+    .spade { color: black; }
+    .club { color: black; }
+    .heart { color: red; }
+    .diamond { color: red; }
+    .top {
+        position: absolute;
+        left: 10px;
+        top: -30px; 
+    }
+    .bottom {
+        position: absolute;
+        right: 10px;
+        bottom: -30px;
+        transform: rotate(180deg);
+    }
+    .middle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+    }
+   
+</style>
+</html>
